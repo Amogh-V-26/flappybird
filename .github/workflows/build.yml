@@ -33,7 +33,7 @@ jobs:
             git \
             zip \
             unzip \
-            openjdk-17-jdk \
+            openjdk-11-jdk \
             autoconf \
             automake \
             libtool \
@@ -48,18 +48,22 @@ jobs:
           pip install cython==0.29.36
           pip install python-for-android
 
-      - name: Install Android packages
+      - name: Fix Android SDK tools
         run: |
+          mkdir -p $ANDROID_HOME/tools/bin
+
+          ln -sf $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
+            $ANDROID_HOME/tools/bin/sdkmanager
+
+          ln -sf $ANDROID_HOME/build-tools/33.0.2/aidl \
+            $ANDROID_HOME/tools/bin/aidl
+
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
             "platform-tools" \
             "platforms;android-33" \
             "build-tools;33.0.2"
-
-      - name: Configure Buildozer
-        run: |
-          buildozer android clean || true
 
       - name: Build APK
         run: |
