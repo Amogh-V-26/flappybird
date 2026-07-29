@@ -23,15 +23,18 @@ jobs:
       - name: Install Android SDK packages
         run: |
           export ANDROID_HOME=$HOME/.buildozer/android/platform/android-sdk
-          export PATH=$PATH:$ANDROID_HOME/tools/bin
 
-          yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses || true
+          SDKMANAGER=$(find $ANDROID_HOME -name sdkmanager -type f | head -1)
 
-          $ANDROID_HOME/tools/bin/sdkmanager \
+          echo "Using sdkmanager: $SDKMANAGER"
+
+          yes | $SDKMANAGER --licenses || true
+
+          $SDKMANAGER \
             "platform-tools" \
             "platforms;android-35" \
             "build-tools;35.0.0"
-
+            
       - name: Build APK
         run: |
           ~/.local/bin/buildozer android debug
