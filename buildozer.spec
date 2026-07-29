@@ -8,6 +8,8 @@ package.domain = org.example
 
 version = 1.0
 
+source.dir = .
+
 requirements = python3==3.11,pygame==2.5.2
 
 android.python_version = 3.11
