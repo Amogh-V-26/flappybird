@@ -17,20 +17,28 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Setup Android SDK path
+        run: |
+          echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_PATH
+          echo "$ANDROID_HOME/platform-tools" >> $GITHUB_PATH
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install buildozer cython==0.29.37 virtualenv
 
-      - name: Install Android SDK packages
+      - name: Accept Android licenses
         run: |
-          yes | sdkmanager --licenses
-          sdkmanager \
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+
+      - name: Install Android packages
+        run: |
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
             "platform-tools" \
             "platforms;android-33" \
             "build-tools;33.0.2"
 
-      - name: Setup Buildozer environment
+      - name: Clear old build
         run: |
           rm -rf .buildozer
           rm -rf bin
