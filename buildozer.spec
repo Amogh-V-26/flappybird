@@ -1,21 +1,17 @@
 [app]
 
-title = Flappy Bird
+title = flappybird
 
 package.name = flappybird
 
 package.domain = org.example
 
-version = 1.0
-
 source.dir = .
 
-requirements = python3==3.11,pygame==2.5.2
+source.include_exts = py,png,jpg,jpeg,wav,mp3,ttf
 
-android.python_version = 3.11
-
-p4a.hostpython = python3.11
+requirements = python3,pygame
 
 orientation = portrait
 
-fullscreen = 1
+android.archs = arm64-v8a,armeabi-v7a
