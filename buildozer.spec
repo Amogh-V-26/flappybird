@@ -8,11 +8,9 @@ package.domain = org.example
 
 version = 1.0
 
-source.dir = .
+requirements = python3==3.11,pygame==2.5.2
 
-source.include_exts = py,png,jpg,jpeg,ttf,wav,mp3,ogg,json
-
-requirements = python3,pygame
+android.python_version = 3.11
 
 orientation = portrait
 
