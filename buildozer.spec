@@ -1,38 +1,65 @@
 [app]
 
+# (str) Title of your application
 title = Flappy Bird
 
+# (str) Package name
 package.name = flappybird
+
+# (str) Package domain
 package.domain = org.amogh
 
+# (str) Source code directory
 source.dir = .
 
-source.include_exts = py,png,jpg,jpeg,wav,mp3,ttf,ogg
+# (list) Source file extensions to include
+source.include_exts = py,png,jpg,jpeg,mp3,wav,ttf,ogg
 
+# (str) Application version
 version = 1.0
 
-requirements = python3==3.11,pygame==2.6.1
+# (list) Application requirements
+requirements = python3,pygame==2.6.1
 
+# (str) Supported orientations
 orientation = portrait
 
+# (bool) Fullscreen mode
 fullscreen = 0
-
-android.api = 33
-android.minapi = 24
-android.ndk = 28c
-
-android.archs = arm64-v8a, armeabi-v7a
-
-android.private_storage = True
-
-p4a.branch = master
-
-android.accept_sdk_license = True
-
-android.permissions = INTERNET
 
 
 [buildozer]
 
+# (int) Log level
 log_level = 2
-warn_on_root = 1
+
+
+[android]
+
+# (str) Android API target
+android.api = 33
+
+# (str) Minimum Android API
+android.minapi = 24
+
+# (list) Architectures
+android.archs = arm64-v8a,armeabi-v7a
+
+# (bool) Copy libraries
+android.copy_libs = 1
+
+# (str) NDK version
+android.ndk = 28c
+
+# (str) Enable backup
+android.allow_backup = True
+
+
+# (bool) Enable Android permissions
+android.permissions = INTERNET
+
+
+[p4a]
+
+# Avoid Python version mismatch
+p4a.bootstrap = sdl2
