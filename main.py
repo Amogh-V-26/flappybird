@@ -3,7 +3,8 @@ from pygame.locals import *
 import ctypes
 import random
 
-ctypes.windll.user32.SetProcessDPIAware() #making window scale to 100% by default (mine is set to 125%)
+if hasattr(ctypes,'windll')
+    ctypes.windll.user32.SetProcessDPIAware() #making window scale to 100% by default (mine is set to 125%)
 
 init()
 
