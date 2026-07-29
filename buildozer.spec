@@ -1,32 +1,38 @@
 [app]
 
-title = flappybird
+title = Flappy Bird
 
 package.name = flappybird
-package.domain = org.example
+package.domain = org.amogh
 
 source.dir = .
-source.include_exts = py,png,jpg,jpeg,wav,mp3,ttf
+
+source.include_exts = py,png,jpg,jpeg,wav,mp3,ttf,ogg
 
 version = 1.0
 
-requirements = python3,pygame
+requirements = python3==3.11,pygame==2.6.1
 
 orientation = portrait
 
 fullscreen = 0
 
-android.sdk_path = /usr/local/lib/android/sdk
-android.ndk_path = /usr/local/lib/android/sdk/ndk/27.3.13750724
-
 android.api = 33
 android.minapi = 24
+android.ndk = 28c
 
-android.archs = arm64-v8a,armeabi-v7a
+android.archs = arm64-v8a, armeabi-v7a
+
+android.private_storage = True
+
+p4a.branch = master
+
+android.accept_sdk_license = True
 
 android.permissions = INTERNET
+
 
 [buildozer]
 
 log_level = 2
-warn_on_root = 0
+warn_on_root = 1
