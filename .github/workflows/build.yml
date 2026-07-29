@@ -31,10 +31,6 @@ jobs:
           pip install --user buildozer cython==0.29.36
           echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
 
-      - name: Clean Build
-        run: |
-          buildozer android clean
-
       - name: Build APK
         run: |
           yes | buildozer android debug
