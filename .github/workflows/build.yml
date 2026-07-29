@@ -20,24 +20,9 @@ jobs:
         run: |
           pip install --user buildozer cython==0.29.36
 
-      - name: Install Android SDK packages
-        run: |
-          export ANDROID_HOME=$HOME/.buildozer/android/platform/android-sdk
-
-          SDKMANAGER=$(find $ANDROID_HOME -name sdkmanager -type f | head -1)
-
-          echo "Using sdkmanager: $SDKMANAGER"
-
-          yes | $SDKMANAGER --licenses || true
-
-          $SDKMANAGER \
-            "platform-tools" \
-            "platforms;android-35" \
-            "build-tools;35.0.0"
-            
       - name: Build APK
         run: |
-          ~/.local/bin/buildozer android debug
+          yes | ~/.local/bin/buildozer android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
