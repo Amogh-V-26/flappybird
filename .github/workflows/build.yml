@@ -2,68 +2,38 @@ name: Build APK
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   build:
     runs-on: ubuntu-22.04
 
-    env:
-      ANDROIDSDK: /usr/local/lib/android/sdk
-      ANDROID_HOME: /usr/local/lib/android/sdk
-      ANDROIDAPI: 33
-      ANDROIDMINAPI: 24
-      ANDROIDNDK: /usr/local/lib/android/sdk/ndk/27.3.13750724
-
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Setup Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Install dependencies
         run: |
-          sudo apt update
-          sudo apt install -y \
-            git \
-            zip \
-            unzip \
-            openjdk-11-jdk \
-            autoconf \
-            automake \
-            libtool \
-            pkg-config \
-            zlib1g-dev \
-            libncurses5-dev \
-            libncursesw5-dev \
-            cmake
+          python -m pip install --upgrade pip
+          pip install buildozer cython==0.29.37 virtualenv
 
-          pip install --upgrade pip
-          pip install buildozer
-          pip install cython==0.29.36
-          pip install python-for-android
-
-      - name: Fix Android SDK tools
+      - name: Install Android SDK packages
         run: |
-          mkdir -p $ANDROID_HOME/tools/bin
-
-          ln -sf $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
-            $ANDROID_HOME/tools/bin/sdkmanager
-
-          ln -sf $ANDROID_HOME/build-tools/33.0.2/aidl \
-            $ANDROID_HOME/tools/bin/aidl
-
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
+          yes | sdkmanager --licenses
+          sdkmanager \
             "platform-tools" \
             "platforms;android-33" \
             "build-tools;33.0.2"
+
+      - name: Setup Buildozer environment
+        run: |
+          rm -rf .buildozer
+          rm -rf bin
 
       - name: Build APK
         run: |
