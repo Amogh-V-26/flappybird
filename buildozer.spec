@@ -12,7 +12,7 @@ source.include_exts = py,png,jpg,jpeg,mp3,wav,ogg,ttf
 
 version = 1.0
 
-requirements = python3,pygame==2.6.1
+requirements = python3,pygame
 
 orientation = portrait
 
