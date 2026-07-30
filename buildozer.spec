@@ -34,8 +34,4 @@ android.ndk = 25b
 
 android.archs = arm64-v8a
 
-android.sdk_path = /usr/local/lib/android/sdk
-
-android.ndk_path = /usr/local/lib/android/ndk
-
 android.accept_sdk_license = True
