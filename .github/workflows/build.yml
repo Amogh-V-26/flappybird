@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install system dependencies
         run: |
           sudo apt update
           sudo apt install -y \
@@ -30,12 +30,21 @@ jobs:
             python3-wheel \
             zip \
             unzip \
-            openjdk-17-jdk
+            openjdk-17-jdk \
+            adb \
+            libffi-dev \
+            libssl-dev
+
+      - name: Setup Android SDK
+        run: |
+          yes | sdkmanager --licenses || true
+          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
 
       - name: Install Buildozer
         run: |
           pip install --upgrade pip
-          pip install buildozer cython==0.29.37
+          pip install buildozer
+          pip install cython==0.29.37
 
       - name: Build APK
         run: |
