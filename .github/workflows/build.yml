@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Java and dependencies
+      - name: Install dependencies
         run: |
           sudo apt update
           sudo apt install -y \
@@ -34,7 +34,7 @@ jobs:
             libffi-dev \
             libssl-dev
 
-      - name: Set Java 17
+      - name: Setup Java
         run: |
           echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
           echo "/usr/lib/jvm/java-17-openjdk-amd64/bin" >> $GITHUB_PATH
@@ -44,12 +44,9 @@ jobs:
         with:
           accept-android-sdk-licenses: true
 
-      - name: Install Android SDK packages
+      - name: Accept all Android licenses
         run: |
-          sdkmanager \
-            "platform-tools" \
-            "platforms;android-35" \
-            "build-tools;35.0.0"
+          yes | sdkmanager --licenses || true
 
       - name: Install Buildozer
         run: |
@@ -57,14 +54,16 @@ jobs:
           pip install buildozer
           pip install cython==0.29.37
 
-      - name: Clean Buildozer cache
+      - name: Clear Buildozer cache
         run: |
           rm -rf ~/.buildozer
           rm -rf .buildozer
 
       - name: Build APK
+        env:
+          ACCEPT_ANDROID_SDK_LICENSE: "1"
         run: |
-          buildozer -v android debug
+          yes | buildozer -v android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
