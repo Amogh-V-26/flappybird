@@ -36,7 +36,10 @@ jobs:
           echo "ANDROIDSDK=/usr/local/lib/android/sdk" >> $GITHUB_ENV
           echo "ANDROIDAPI=33" >> $GITHUB_ENV
           echo "ANDROIDMINAPI=24" >> $GITHUB_ENV
-
+          
+      - name: Clean previous build
+        run: rm -rf .buildozer
+        
       - name: Build APK
         run: |
           buildozer -v android debug
