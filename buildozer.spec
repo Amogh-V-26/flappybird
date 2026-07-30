@@ -32,8 +32,12 @@ android.minapi = 23
 
 android.ndk = 25b
 
-android.build_tools_version = 35.0.0
-
 android.archs = arm64-v8a
 
+android.sdk_path = /usr/local/lib/android/sdk
+
+android.ndk_path = /usr/local/lib/android/ndk
+
+
+# Accept Android SDK licenses
 android.accept_sdk_license = True
