@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Java 17 and dependencies
+      - name: Install Java and dependencies
         run: |
           sudo apt update
           sudo apt install -y \
@@ -44,7 +44,7 @@ jobs:
         with:
           accept-android-sdk-licenses: true
 
-      - name: Install Android packages
+      - name: Install Android SDK packages
         run: |
           sdkmanager \
             "platform-tools" \
@@ -57,15 +57,13 @@ jobs:
           pip install buildozer
           pip install cython==0.29.37
 
-      - name: Configure Buildozer SDK paths
+      - name: Clean Buildozer cache
         run: |
-          mkdir -p ~/.buildozer
-          echo "android.sdk_path = $ANDROID_HOME" >> ~/.buildozer/default.spec
-          echo "android.ndk_path = $ANDROID_NDK_HOME" >> ~/.buildozer/default.spec
+          rm -rf ~/.buildozer
+          rm -rf .buildozer
 
       - name: Build APK
         run: |
-          buildozer android clean
           buildozer -v android debug
 
       - name: Upload APK
