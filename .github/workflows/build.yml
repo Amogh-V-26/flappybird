@@ -19,13 +19,11 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install system dependencies
+      - name: Install Java 17 and dependencies
         run: |
           sudo apt update
           sudo apt install -y \
+            openjdk-17-jdk \
             build-essential \
             git \
             python3-pip \
@@ -33,13 +31,21 @@ jobs:
             python3-wheel \
             zip \
             unzip \
-            openjdk-17-jdk \
             libffi-dev \
             libssl-dev
 
-      - name: Accept Android licenses and install SDK packages
+      - name: Set Java 17
         run: |
-          yes | sdkmanager --licenses
+          echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
+          echo "/usr/lib/jvm/java-17-openjdk-amd64/bin" >> $GITHUB_PATH
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          accept-android-sdk-licenses: true
+
+      - name: Install Android SDK packages
+        run: |
           sdkmanager \
             "platform-tools" \
             "platforms;android-35" \
