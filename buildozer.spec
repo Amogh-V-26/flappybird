@@ -38,6 +38,4 @@ android.sdk_path = /usr/local/lib/android/sdk
 
 android.ndk_path = /usr/local/lib/android/ndk
 
-
-# Accept Android SDK licenses
 android.accept_sdk_license = True
