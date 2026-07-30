@@ -44,7 +44,7 @@ jobs:
         with:
           accept-android-sdk-licenses: true
 
-      - name: Install Android SDK packages
+      - name: Install Android packages
         run: |
           sdkmanager \
             "platform-tools" \
@@ -57,8 +57,15 @@ jobs:
           pip install buildozer
           pip install cython==0.29.37
 
+      - name: Configure Buildozer SDK paths
+        run: |
+          mkdir -p ~/.buildozer
+          echo "android.sdk_path = $ANDROID_HOME" >> ~/.buildozer/default.spec
+          echo "android.ndk_path = $ANDROID_NDK_HOME" >> ~/.buildozer/default.spec
+
       - name: Build APK
         run: |
+          buildozer android clean
           buildozer -v android debug
 
       - name: Upload APK
